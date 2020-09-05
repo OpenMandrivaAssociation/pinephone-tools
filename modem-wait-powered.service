@@ -1,0 +1,17 @@
+[Unit]
+Description=Wait until the modem is powered on
+Requires=modem.service
+# Technically
+# Before=network-online.target
+# but we don't really want a 20sec bootup time
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/modem wait
+
+[Install]
+WantedBy=multi-user.target
+# Technically
+# WantedBy=network-online.target
+# but we don't really want a 20sec bootup time

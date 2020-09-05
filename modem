@@ -1,0 +1,19 @@
+#!/bin/sh
+case "$1" in
+on|start)
+	echo 1 > /sys/class/modem-power/modem-power/device/powered
+	;;
+off|stop)
+	echo 0 > /sys/class/modem-power/modem-power/device/powered
+	;;
+wait)
+	while [ "`cat /sys/class/modem-power/modem-power/device/powered`" -ne "1" ]; do
+		sleep 1s
+	done
+	;;
+wait-off)
+	while [ "`cat /sys/class/modem-power/modem-power/device/powered`" -ne "0" ]; do
+		sleep 1s
+	done
+	;;
+esac
