@@ -35,7 +35,7 @@ Tool to set up audio routing on the PinePhone
 
 %install
 mkdir -p %{buildroot}%{_bindir}
-cp pinephone-audio-setup modem-adb-access %{S:1} %{buildroot}%{_bindir}/
+cp -a pinephone-audio-setup modem-adb-access %{S:1} %{buildroot}%{_bindir}/
 
 mkdir -p %{buildroot}%{_datadir}/alsa/ucm2
 cp %{S:10} %{S:11} %{S:12} %{buildroot}%{_datadir}/alsa/ucm2/
