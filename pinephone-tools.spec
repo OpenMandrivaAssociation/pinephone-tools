@@ -19,7 +19,7 @@ Source4:	modem-wait-powered.service
 Source10:	https://raw.githubusercontent.com/dreemurrs-embedded/Pine64-Arch/master/PKGBUILDS/pine64/alsa-ucm-pinephone/HiFi.conf
 Source11:	https://raw.githubusercontent.com/dreemurrs-embedded/Pine64-Arch/master/PKGBUILDS/pine64/alsa-ucm-pinephone/PinePhone.conf
 Source12:	https://raw.githubusercontent.com/dreemurrs-embedded/Pine64-Arch/master/PKGBUILDS/pine64/alsa-ucm-pinephone/VoiceCall.conf
-#ExclusiveArch:	aarch64
+ExclusiveArch:	aarch64
 BuildRequires:	pkgconfig(alsa)
 BuildRequires:	pkgconfig(libxcrypt)
 License:	GPLv3+
