@@ -43,6 +43,8 @@ cp %{S:10} %{S:11} %{S:12} %{buildroot}%{_datadir}/alsa/ucm2/
 mkdir -p %{buildroot}/lib/systemd/system
 cp %{S:3} %{S:4} %{buildroot}/lib/systemd/system/
 
+chmod +x %{buildroot}%{_bindir}/*
+
 %files
 %{_bindir}/pinephone-audio-setup
 %{_bindir}/modem
