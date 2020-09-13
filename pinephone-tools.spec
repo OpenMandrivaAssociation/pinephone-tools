@@ -1,7 +1,7 @@
 Summary:	Tools for working with the PinePhone hardware
 Name:		pinephone-tools
 Version:	1.0
-Release:	0.20200905.1
+Release:	0.20200905.2
 Url:		https://xnux.eu/devices/feature/audio-pp.html
 # Tools to drive PinePhone hardware...
 # Audio routing
@@ -37,8 +37,8 @@ Tool to set up audio routing on the PinePhone
 mkdir -p %{buildroot}%{_bindir}
 cp -a pinephone-audio-setup modem-adb-access %{S:1} %{buildroot}%{_bindir}/
 
-mkdir -p %{buildroot}%{_datadir}/alsa/ucm2
-cp %{S:10} %{S:11} %{S:12} %{buildroot}%{_datadir}/alsa/ucm2/
+mkdir -p %{buildroot}%{_datadir}/alsa/ucm2/PinePhone/
+cp %{S:10} %{S:11} %{S:12} %{buildroot}%{_datadir}/alsa/ucm2/PinePhone/
 
 mkdir -p %{buildroot}/lib/systemd/system
 cp %{S:3} %{S:4} %{buildroot}/lib/systemd/system/
@@ -49,6 +49,6 @@ chmod +x %{buildroot}%{_bindir}/*
 %{_bindir}/pinephone-audio-setup
 %{_bindir}/modem
 %{_bindir}/modem-adb-access
-%{_datadir}/alsa/ucm2/*.conf
+%{_datadir}/alsa/ucm2/PinePhone
 /lib/systemd/system/modem.service
 /lib/systemd/system/modem-wait-powered.service
