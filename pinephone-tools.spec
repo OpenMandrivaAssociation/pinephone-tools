@@ -19,6 +19,9 @@ Source4:	modem-wait-powered.service
 Source10:	https://raw.githubusercontent.com/dreemurrs-embedded/Pine64-Arch/master/PKGBUILDS/pine64/alsa-ucm-pinephone/HiFi.conf
 Source11:	https://raw.githubusercontent.com/dreemurrs-embedded/Pine64-Arch/master/PKGBUILDS/pine64/alsa-ucm-pinephone/PinePhone.conf
 Source12:	https://raw.githubusercontent.com/dreemurrs-embedded/Pine64-Arch/master/PKGBUILDS/pine64/alsa-ucm-pinephone/VoiceCall.conf
+Source13:	99-dmix.conf
+# NetworkManager configuration
+Source20:	MobileData.nmconnection
 ExclusiveArch:	aarch64
 BuildRequires:	pkgconfig(alsa)
 BuildRequires:	pkgconfig(libxcrypt)
@@ -39,9 +42,14 @@ cp -a pinephone-audio-setup modem-adb-access %{S:1} %{buildroot}%{_bindir}/
 
 mkdir -p %{buildroot}%{_datadir}/alsa/ucm2/PinePhone/
 cp %{S:10} %{S:11} %{S:12} %{buildroot}%{_datadir}/alsa/ucm2/PinePhone/
+mkdir -p %{buildroot}%{_sysconfdir}/alsa/conf.d/
+cp %{S:13} %{buildroot}%{_sysconfdir}/alsa/conf.d/
 
 mkdir -p %{buildroot}/lib/systemd/system
 cp %{S:3} %{S:4} %{buildroot}/lib/systemd/system/
+
+mkdir -p %{buildroot}%{_sysconfdir}/NetworkManager/system-connections
+cp %{S:20} %{buildroot}%{_sysconfdir}/NetworkManager/system-connections/
 
 chmod +x %{buildroot}%{_bindir}/*
 
@@ -52,3 +60,5 @@ chmod +x %{buildroot}%{_bindir}/*
 %{_datadir}/alsa/ucm2/PinePhone
 /lib/systemd/system/modem.service
 /lib/systemd/system/modem-wait-powered.service
+%config %{_sysconfdir}/alsa/conf.d/99-dmix.conf
+%config(noreplace) %{_sysconfdir}/NetworkManager/system-connections/MobileData.nmconnection
