@@ -1,6 +1,6 @@
 [connection]
 id=MobileData
-uuid=66d9464c-c37e-4288-83e8-d3963f0be0ea
+uuid=23a343f6-ecfb-4f7a-8ec9-bb899c57fd36
 type=gsm
 interface-name=cdc-wdm0
 permissions=

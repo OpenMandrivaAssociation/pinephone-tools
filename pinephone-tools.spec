@@ -1,7 +1,7 @@
 Summary:	Tools for working with the PinePhone hardware
 Name:		pinephone-tools
 Version:	1.0
-Release:	0.20200905.4
+Release:	0.20200914.1
 Url:		https://xnux.eu/devices/feature/audio-pp.html
 # Tools to drive PinePhone hardware...
 # Audio routing
@@ -23,6 +23,11 @@ Source13:	99-dmix.conf
 Source14:	asound.state
 # NetworkManager configuration
 Source20:	MobileData.nmconnection
+# TEMPORARY preloaded kwallet to make things easier. Should be replaced
+# by patching kwallet to create an empty wallet on first startup to make
+# sure we have random seeds
+Source30:	kdewallet.kwl
+Source31:	kdewallet.salt
 ExclusiveArch:	aarch64
 BuildRequires:	pkgconfig(alsa)
 BuildRequires:	pkgconfig(libxcrypt)
@@ -54,6 +59,9 @@ cp %{S:3} %{S:4} %{buildroot}/lib/systemd/system/
 mkdir -p %{buildroot}%{_sysconfdir}/NetworkManager/system-connections
 cp %{S:20} %{buildroot}%{_sysconfdir}/NetworkManager/system-connections/
 
+mkdir -p %{buildroot}/home/omv/.local/share/kwalletd
+cp %{S:30} %{S:31} %{buildroot}/home/omv/.local/share/kwalletd/
+
 chmod +x %{buildroot}%{_bindir}/*
 
 %files
@@ -65,4 +73,6 @@ chmod +x %{buildroot}%{_bindir}/*
 /lib/systemd/system/modem.service
 /lib/systemd/system/modem-wait-powered.service
 %config %{_sysconfdir}/alsa/conf.d/99-dmix.conf
-%config(noreplace) %{_sysconfdir}/NetworkManager/system-connections/MobileData.nmconnection
+%config(noreplace) %attr(0600,root,root) %{_sysconfdir}/NetworkManager/system-connections/MobileData.nmconnection
+# FIXME remove as soon as kwalletd is patched
+/home/omv/.local/share/kwalletd/*
