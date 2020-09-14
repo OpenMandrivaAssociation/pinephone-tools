@@ -1,7 +1,7 @@
 Summary:	Tools for working with the PinePhone hardware
 Name:		pinephone-tools
 Version:	1.0
-Release:	0.20200914.1
+Release:	0.20200914.2
 Url:		https://xnux.eu/devices/feature/audio-pp.html
 # Tools to drive PinePhone hardware...
 # Audio routing
@@ -59,8 +59,8 @@ cp %{S:3} %{S:4} %{buildroot}/lib/systemd/system/
 mkdir -p %{buildroot}%{_sysconfdir}/NetworkManager/system-connections
 cp %{S:20} %{buildroot}%{_sysconfdir}/NetworkManager/system-connections/
 
-mkdir -p %{buildroot}/home/omv/.local/share/kwalletd
-cp %{S:30} %{S:31} %{buildroot}/home/omv/.local/share/kwalletd/
+mkdir -p %{buildroot}%{_sysconfdir}/skel/.local/share/kwalletd
+cp %{S:30} %{S:31} %{buildroot}%{_sysconfdir}/skel/.local/share/kwalletd/
 
 chmod +x %{buildroot}%{_bindir}/*
 
@@ -75,4 +75,4 @@ chmod +x %{buildroot}%{_bindir}/*
 %config %{_sysconfdir}/alsa/conf.d/99-dmix.conf
 %config(noreplace) %attr(0600,root,root) %{_sysconfdir}/NetworkManager/system-connections/MobileData.nmconnection
 # FIXME remove as soon as kwalletd is patched
-/home/omv/.local/share/kwalletd/*
+%{_sysconfdir}/skel/.local/share/kwalletd/*
