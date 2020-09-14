@@ -1,7 +1,7 @@
 Summary:	Tools for working with the PinePhone hardware
 Name:		pinephone-tools
 Version:	1.0
-Release:	0.20200905.3
+Release:	0.20200905.4
 Url:		https://xnux.eu/devices/feature/audio-pp.html
 # Tools to drive PinePhone hardware...
 # Audio routing
@@ -20,6 +20,7 @@ Source10:	https://raw.githubusercontent.com/dreemurrs-embedded/Pine64-Arch/maste
 Source11:	https://raw.githubusercontent.com/dreemurrs-embedded/Pine64-Arch/master/PKGBUILDS/pine64/alsa-ucm-pinephone/PinePhone.conf
 Source12:	https://raw.githubusercontent.com/dreemurrs-embedded/Pine64-Arch/master/PKGBUILDS/pine64/alsa-ucm-pinephone/VoiceCall.conf
 Source13:	99-dmix.conf
+Source14:	asound.state
 # NetworkManager configuration
 Source20:	MobileData.nmconnection
 ExclusiveArch:	aarch64
@@ -44,6 +45,8 @@ mkdir -p %{buildroot}%{_datadir}/alsa/ucm2/PinePhone/
 cp %{S:10} %{S:11} %{S:12} %{buildroot}%{_datadir}/alsa/ucm2/PinePhone/
 mkdir -p %{buildroot}%{_sysconfdir}/alsa/conf.d/
 cp %{S:13} %{buildroot}%{_sysconfdir}/alsa/conf.d/
+mkdir -p %{buildroot}%{_localstatedir}/lib/alsa/
+cp %{S:14} %{buildroot}%{_localstatedir}/lib/alsa/
 
 mkdir -p %{buildroot}/lib/systemd/system
 cp %{S:3} %{S:4} %{buildroot}/lib/systemd/system/
@@ -58,6 +61,7 @@ chmod +x %{buildroot}%{_bindir}/*
 %{_bindir}/modem
 %{_bindir}/modem-adb-access
 %{_datadir}/alsa/ucm2/PinePhone
+%{_localstatedir}/lib/alsa/asound.state
 /lib/systemd/system/modem.service
 /lib/systemd/system/modem-wait-powered.service
 %config %{_sysconfdir}/alsa/conf.d/99-dmix.conf
