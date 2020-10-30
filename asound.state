@@ -241,16 +241,6 @@ state.sun50ia64audio {
 			dbvalue.0 0
 		}
 	}
-	control.18 {
-		iface MIXER
-		name 'AIF1 Loopback Switch'
-		value false
-		comment {
-			access 'read write'
-			type BOOLEAN
-			count 1
-		}
-	}
 	control.19 {
 		iface MIXER
 		name 'AIF2 Loopback Switch'
@@ -316,7 +306,7 @@ state.sun50ia64audio {
 	}
 	control.24 {
 		iface MIXER
-		name 'AIF1 AD0 Mixer AIF1 DA0 Capture Switch'
+		name 'AIF1 Slot 0 Digital ADC Capture Switch'
 		value.0 false
 		value.1 false
 		comment {
@@ -327,7 +317,7 @@ state.sun50ia64audio {
 	}
 	control.25 {
 		iface MIXER
-		name 'AIF1 AD0 Mixer AIF2 DAC Capture Switch'
+		name 'AIF2 Digital ADC Capture Switch'
 		value.0 false
 		value.1 true
 		comment {
@@ -338,7 +328,7 @@ state.sun50ia64audio {
 	}
 	control.26 {
 		iface MIXER
-		name 'AIF1 AD0 Mixer ADC Capture Switch'
+		name 'AIF1 Data Digital ADC Capture Switch'
 		value.0 true
 		value.1 false
 		comment {
@@ -349,7 +339,7 @@ state.sun50ia64audio {
 	}
 	control.27 {
 		iface MIXER
-		name 'AIF1 AD0 Mixer AIF2 DAC Rev Capture Switch'
+		name 'AIF2 Inv Digital ADC Capture Switch'
 		value.0 false
 		value.1 false
 		comment {

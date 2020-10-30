@@ -1,7 +1,7 @@
 Summary:	Tools for working with the PinePhone hardware
 Name:		pinephone-tools
 Version:	1.0
-Release:	0.20200914.2
+Release:	0.20201029.1
 Url:		https://xnux.eu/devices/feature/audio-pp.html
 # Tools to drive PinePhone hardware...
 # Audio routing
@@ -32,6 +32,8 @@ ExclusiveArch:	aarch64
 BuildRequires:	pkgconfig(alsa)
 BuildRequires:	pkgconfig(libxcrypt)
 License:	GPLv3+
+# Audio driver controls changed in 5.10
+Conflicts:	kernel-pinephone < 5.10.0-0
 
 %description
 Tool to set up audio routing on the PinePhone
