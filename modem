@@ -7,6 +7,11 @@ on|start)
 off|stop)
 	echo 0 > /sys/class/modem-power/modem-power/device/powered
 	;;
+firmware)
+	/sbin/modprobe modem-power
+	echo 1 > /sys/class/modem-power/modem-power/device/powered
+	QFirehose -f /usr/share/modem-fw
+	;;
 wait)
 	while [ "`cat /sys/class/modem-power/modem-power/device/powered`" -ne "1" ]; do
 		sleep 1s
