@@ -15,6 +15,8 @@ Source2:	https://xnux.eu/devices/feature/qadbkey-unlock.c
 # Systemd integration for the modem...
 Source3:	modem.service
 Source4:	modem-wait-powered.service
+# Camera setup/test script
+Source5:	camera
 # ALSA configurations
 Source10:	https://raw.githubusercontent.com/dreemurrs-embedded/Pine64-Arch/master/PKGBUILDS/pine64/alsa-ucm-pinephone/HiFi.conf
 Source11:	https://raw.githubusercontent.com/dreemurrs-embedded/Pine64-Arch/master/PKGBUILDS/pine64/alsa-ucm-pinephone/PinePhone.conf
@@ -55,7 +57,7 @@ make clean
 
 %install
 mkdir -p %{buildroot}%{_bindir}
-cp -a pinephone-audio-setup modem-adb-access %{S:1} %{buildroot}%{_bindir}/
+cp -a pinephone-audio-setup modem-adb-access %{S:1} %{S:5} %{buildroot}%{_bindir}/
 
 mkdir -p %{buildroot}%{_datadir}/alsa/ucm2/PinePhone/
 cp %{S:10} %{S:11} %{S:12} %{buildroot}%{_datadir}/alsa/ucm2/PinePhone/
@@ -84,6 +86,7 @@ tar x --strip-components=1 -f %{S:26}
 
 %files
 %{_bindir}/pinephone-audio-setup
+%{_bindir}/camera
 %{_bindir}/modem
 %{_bindir}/modem-adb-access
 %{_bindir}/QFirehose

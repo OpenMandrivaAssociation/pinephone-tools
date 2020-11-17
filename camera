@@ -1,0 +1,15 @@
+#!/bin/sh
+case "$1" in
+rear)
+	media-ctl -d /dev/media1 --links '"gc2145 5-003c":0->"sun6i-csi":0[0]'
+	media-ctl -d /dev/media1 --links '"ov5640 5-004c":0->"sun6i-csi":0[1]'
+	media-ctl -d /dev/media1 --set-v4l2 '"ov5640 5-004c":0[fmt:UYVY8_2X8/1280x720]'
+	;;
+front)
+	media-ctl -d /dev/media1 --links '"ov5640 5-004c":0->"sun6i-csi":0[0]'
+	media-ctl -d /dev/media1 --links '"gc2145 5-003c":0->"sun6i-csi":0[1]'
+	media-ctl -d /dev/media1 --set-v4l2 '"gc2145 5-003c":0[fmt:UYVY8_2X8/1280x720]'
+	;;
+esac
+ffmpeg -s 1280x720 -f video4linux2 -i /dev/video2 -vframes 1 photo.jpg
+#mpv --vo=xv /dev/video2
