@@ -16,7 +16,7 @@ Source2:	https://xnux.eu/devices/feature/qadbkey-unlock.c
 Source3:	modem.service
 Source4:	modem-wait-powered.service
 # Camera setup/test script
-Source5:	camera
+Source5:	camera-setup
 # ALSA configurations
 Source10:	https://raw.githubusercontent.com/dreemurrs-embedded/Pine64-Arch/master/PKGBUILDS/pine64/alsa-ucm-pinephone/HiFi.conf
 Source11:	https://raw.githubusercontent.com/dreemurrs-embedded/Pine64-Arch/master/PKGBUILDS/pine64/alsa-ucm-pinephone/PinePhone.conf
@@ -27,7 +27,6 @@ Source14:	asound.state
 Source20:	MobileData.nmconnection
 # Modem firmware
 # See https://forum.pine64.org/showthread.php?tid=11815
-Source25:	https://universe2.us/collector/qfirehose_good.tar.zst
 Source26:	https://universe2.us/collector/newfw.tar.zst
 # TEMPORARY preloaded kwallet to make things easier. Should be replaced
 # by patching kwallet to create an empty wallet on first startup to make
@@ -49,11 +48,6 @@ Tool to set up audio routing on the PinePhone
 %build
 %{__cc} %{optflags} -o pinephone-audio-setup %{S:0}
 %{__cc} %{optflags} -o modem-adb-access %{S:2} -lcrypt
-tar xf %{S:25}
-# Modem firmware flash tool
-cd qfirehose_good
-make clean
-%make_build cflags="%{optflags}" CC="%{__cc}"
 
 %install
 mkdir -p %{buildroot}%{_bindir}
@@ -75,8 +69,6 @@ cp %{S:20} %{buildroot}%{_sysconfdir}/NetworkManager/system-connections/
 mkdir -p %{buildroot}%{_sysconfdir}/skel/.local/share/kwalletd
 cp %{S:30} %{S:31} %{buildroot}%{_sysconfdir}/skel/.local/share/kwalletd/
 
-cp qfirehose_good/QFirehose %{buildroot}%{_bindir}
-
 chmod +x %{buildroot}%{_bindir}/*
 
 # Known working Modem firmware
@@ -86,10 +78,9 @@ tar x --strip-components=1 -f %{S:26}
 
 %files
 %{_bindir}/pinephone-audio-setup
-%{_bindir}/camera
+%{_bindir}/camera-setup
 %{_bindir}/modem
 %{_bindir}/modem-adb-access
-%{_bindir}/QFirehose
 %{_datadir}/alsa/ucm2/PinePhone
 %{_localstatedir}/lib/alsa/asound.state
 /lib/systemd/system/modem.service
