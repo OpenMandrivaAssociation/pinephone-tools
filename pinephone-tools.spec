@@ -17,6 +17,8 @@ Source3:	modem.service
 Source4:	modem-wait-powered.service
 # Camera setup/test script
 Source5:	camera-setup
+# udev rules to make sure the LEDs (torch!) can be controlled
+Source6:	80-leds.rules
 # ALSA configurations
 Source10:	https://raw.githubusercontent.com/dreemurrs-embedded/Pine64-Arch/master/PKGBUILDS/pine64/alsa-ucm-pinephone/HiFi.conf
 Source11:	https://raw.githubusercontent.com/dreemurrs-embedded/Pine64-Arch/master/PKGBUILDS/pine64/alsa-ucm-pinephone/PinePhone.conf
@@ -54,6 +56,9 @@ Tool to set up audio routing on the PinePhone
 mkdir -p %{buildroot}%{_bindir}
 cp -a pinephone-audio-setup modem-adb-access %{S:1} %{S:5} %{buildroot}%{_bindir}/
 
+mkdir -p %{buildroot}/lib/udev/rules.d
+cp %{S:6} %{buildroot}/lib/udev/rules.d/80-leds.rules
+
 mkdir -p %{buildroot}%{_datadir}/alsa/ucm2/PinePhone/
 cp %{S:10} %{S:11} %{S:12} %{buildroot}%{_datadir}/alsa/ucm2/PinePhone/
 mkdir -p %{buildroot}%{_localstatedir}/lib/alsa/
@@ -80,6 +85,7 @@ unzip %{S:26}
 %{_bindir}/camera-setup
 %{_bindir}/modem
 %{_bindir}/modem-adb-access
+/lib/udev/rules.d/80-leds.rules
 %{_datadir}/alsa/ucm2/PinePhone
 %{_localstatedir}/lib/alsa/asound.state
 /lib/systemd/system/modem.service
