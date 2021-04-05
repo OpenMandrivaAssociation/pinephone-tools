@@ -1,7 +1,7 @@
 Summary:	Tools for working with the PinePhone hardware
 Name:		pinephone-tools
 Version:	1.0
-Release:	0.20201114.1
+Release:	0.20210405.1
 Url:		https://xnux.eu/devices/feature/audio-pp.html
 # Tools to drive PinePhone hardware...
 # Audio routing
@@ -21,13 +21,13 @@ Source5:	camera-setup
 Source10:	https://raw.githubusercontent.com/dreemurrs-embedded/Pine64-Arch/master/PKGBUILDS/pine64/alsa-ucm-pinephone/HiFi.conf
 Source11:	https://raw.githubusercontent.com/dreemurrs-embedded/Pine64-Arch/master/PKGBUILDS/pine64/alsa-ucm-pinephone/PinePhone.conf
 Source12:	https://raw.githubusercontent.com/dreemurrs-embedded/Pine64-Arch/master/PKGBUILDS/pine64/alsa-ucm-pinephone/VoiceCall.conf
-Source13:	99-dmix.conf
 Source14:	asound.state
 # NetworkManager configuration
 Source20:	MobileData.nmconnection
 # Modem firmware
 # See https://forum.pine64.org/showthread.php?tid=11815
-Source26:	https://universe2.us/collector/newfw.tar.zst
+# https://cnquectel-my.sharepoint.com/:f:/g/personal/europe-fae_quectel_com/EvXsoYRgfANCrMpPTnSZgL4BCDi8fImGZqHT_XFDCpG4vg?e=eSt06u
+Source26:	EG25GGBR07A08M2G_01.003.01.003.zip
 # TEMPORARY preloaded kwallet to make things easier. Should be replaced
 # by patching kwallet to create an empty wallet on first startup to make
 # sure we have random seeds
@@ -55,8 +55,6 @@ cp -a pinephone-audio-setup modem-adb-access %{S:1} %{S:5} %{buildroot}%{_bindir
 
 mkdir -p %{buildroot}%{_datadir}/alsa/ucm2/PinePhone/
 cp %{S:10} %{S:11} %{S:12} %{buildroot}%{_datadir}/alsa/ucm2/PinePhone/
-mkdir -p %{buildroot}%{_sysconfdir}/alsa/conf.d/
-cp %{S:13} %{buildroot}%{_sysconfdir}/alsa/conf.d/
 mkdir -p %{buildroot}%{_localstatedir}/lib/alsa/
 cp %{S:14} %{buildroot}%{_localstatedir}/lib/alsa/
 
@@ -74,7 +72,7 @@ chmod +x %{buildroot}%{_bindir}/*
 # Known working Modem firmware
 mkdir -p %{buildroot}%{_datadir}/modem-fw
 cd %{buildroot}%{_datadir}/modem-fw
-tar x --strip-components=1 -f %{S:26}
+tar xf %{S:26}
 
 %files
 %{_bindir}/pinephone-audio-setup
@@ -85,7 +83,6 @@ tar x --strip-components=1 -f %{S:26}
 %{_localstatedir}/lib/alsa/asound.state
 /lib/systemd/system/modem.service
 /lib/systemd/system/modem-wait-powered.service
-%config %{_sysconfdir}/alsa/conf.d/99-dmix.conf
 %config(noreplace) %attr(0600,root,root) %{_sysconfdir}/NetworkManager/system-connections/MobileData.nmconnection
 # FIXME remove as soon as kwalletd is patched
 %{_sysconfdir}/skel/.local/share/kwalletd/*

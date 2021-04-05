@@ -3,7 +3,7 @@ id=MobileData
 uuid=23a343f6-ecfb-4f7a-8ec9-bb899c57fd36
 type=gsm
 interface-name=cdc-wdm0
-permissions=
+permissions=user:omv:;
 
 [gsm]
 apn=internet
