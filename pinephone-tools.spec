@@ -36,6 +36,7 @@ Source31:	kdewallet.salt
 ExclusiveArch:	aarch64
 BuildRequires:	pkgconfig(alsa)
 BuildRequires:	pkgconfig(libxcrypt)
+BuildRequires:	unzip
 License:	GPLv3+
 # Audio driver controls changed in 5.10
 Conflicts:	kernel-pinephone < 5.10.0-0
@@ -72,7 +73,7 @@ chmod +x %{buildroot}%{_bindir}/*
 # Known working Modem firmware
 mkdir -p %{buildroot}%{_datadir}/modem-fw
 cd %{buildroot}%{_datadir}/modem-fw
-tar xf %{S:26}
+unzip %{S:26}
 
 %files
 %{_bindir}/pinephone-audio-setup
