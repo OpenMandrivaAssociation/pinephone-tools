@@ -1,7 +1,7 @@
 Summary:	Tools for working with the PinePhone hardware
 Name:		pinephone-tools
 Version:	1.0
-Release:	0.20210405.1
+Release:	0.20210406.1
 Url:		https://xnux.eu/devices/feature/audio-pp.html
 # Tools to drive PinePhone hardware...
 # Audio routing
