@@ -48,6 +48,14 @@ Conflicts:	kernel-pinephone < 5.10.0-0
 %description
 Tool to set up audio routing on the PinePhone
 
+%package debug
+Summary:	Debug info for %{name}
+Group:		Debugging
+Requires:	%{name} = %{EVRD}
+
+%description debug
+Debug info for %{name}
+
 %prep
 
 %build
@@ -99,3 +107,7 @@ unzip %{S:26}
 # FIXME remove as soon as kwalletd is patched
 %{_sysconfdir}/skel/.local/share/kwalletd/*
 %{_datadir}/modem-fw
+
+%files debug
+%{_prefix}/lib/debug/.dwz
+%{_prefix}/lib/debug%{_bindir}/*.debug
