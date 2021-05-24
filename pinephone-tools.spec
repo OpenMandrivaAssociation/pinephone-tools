@@ -1,7 +1,7 @@
 Summary:	Tools for working with the PinePhone hardware
 Name:		pinephone-tools
 Version:	1.0
-Release:	0.20210406.1
+Release:	0.20210524.1
 Url:		https://xnux.eu/devices/feature/audio-pp.html
 # Tools to drive PinePhone hardware...
 # Audio routing
@@ -24,6 +24,8 @@ Source10:	https://raw.githubusercontent.com/dreemurrs-embedded/Pine64-Arch/maste
 Source11:	https://raw.githubusercontent.com/dreemurrs-embedded/Pine64-Arch/master/PKGBUILDS/pine64/alsa-ucm-pinephone/PinePhone.conf
 Source12:	https://raw.githubusercontent.com/dreemurrs-embedded/Pine64-Arch/master/PKGBUILDS/pine64/alsa-ucm-pinephone/VoiceCall.conf
 Source14:	asound.state
+# PulseAudio configuration
+Source15:	pinephone.pa
 # NetworkManager configuration
 Source20:	MobileData.nmconnection
 # Modem firmware
@@ -63,6 +65,8 @@ mkdir -p %{buildroot}%{_datadir}/alsa/ucm2/PinePhone/
 cp %{S:10} %{S:11} %{S:12} %{buildroot}%{_datadir}/alsa/ucm2/PinePhone/
 mkdir -p %{buildroot}%{_localstatedir}/lib/alsa/
 cp %{S:14} %{buildroot}%{_localstatedir}/lib/alsa/
+mkdir -p %{buildroot}%{_sysconfdir}/pulse/default.pa.d
+cp %{S:15} %{buildroot}%{_sysconfdir}/pulse/default.pa.d/pinephone.pa
 
 mkdir -p %{buildroot}/lib/systemd/system
 cp %{S:3} %{S:4} %{buildroot}/lib/systemd/system/
@@ -88,6 +92,7 @@ unzip %{S:26}
 /lib/udev/rules.d/80-leds.rules
 %{_datadir}/alsa/ucm2/PinePhone
 %{_localstatedir}/lib/alsa/asound.state
+%{_sysconfdir}/pulse/default.pa.d
 /lib/systemd/system/modem.service
 /lib/systemd/system/modem-wait-powered.service
 %config(noreplace) %attr(0600,root,root) %{_sysconfdir}/NetworkManager/system-connections/MobileData.nmconnection
